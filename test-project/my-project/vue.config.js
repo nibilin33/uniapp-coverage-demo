@@ -21,5 +21,19 @@ module.exports = {
       pathinfo: false,
     },
   },
-  transpileDependencies: ['uni-simple-router']
+  transpileDependencies: ['uni-simple-router'],
+  configureWebpack: (webpackConfig) => {
+    // webpackConfig.plugins.push(new UniappJSDispatchPlugin())
+    // webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+    // if (process.env.UNI_PLATFORM !== "h5") {
+    //   webpackConfig.optimization.splitChunks = getSplitChunks();
+    //   webpackConfig.plugins.push(new MpImportRuntimeTemplatePlugin());
+    // }
+    webpackConfig.plugins.push(
+      new webpack.ProvidePlugin({
+        getCoverage: path.resolve(__dirname, "./window-polyfill.js"),
+      })
+    );
+    // webpackConfig.optimization.minimize = false;
+  },
 }
